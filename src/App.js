@@ -22,7 +22,7 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<RootLayout />}>
+      <Route path="React_Countries" element={<RootLayout />}>
         <Route index element={<AllCountries />} loader={CountryLoader} />
         <Route
           path=":SelectedCountry"
