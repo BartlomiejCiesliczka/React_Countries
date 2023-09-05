@@ -9,17 +9,35 @@ import { RootLayout } from "./Layouts/RootLayout";
 import { AllCountries, CountryLoader } from "./Pages/AllCountries";
 import { CountryDetail, CountryDetailLoader } from "./Pages/CountryDetail";
 import { Region } from "./Pages/Region";
-import { createContext, useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
 
-export const ThemeContext = createContext(null);
+//dark theme
+import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import { useMemo, useState, createContext } from "react";
+
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 function App() {
-  const [theme, setTheme] = useState("light");
-  const toggleTheme = () => {
-    setTheme((curr) => (curr === "light" ? "dark" : "light"));
-  };
-  console.log(theme);
+  const [mode, setMode] = useState("light");
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode]
+  );
 
+  //router base
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="React_Countries" element={<RootLayout />}>
@@ -35,11 +53,14 @@ function App() {
   );
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className="main" id={theme}>
-        <RouterProvider router={router} />
-      </div>
-    </ThemeContext.Provider>
+    <>
+      <ColorModeContext.Provider value={{ colorMode, theme }}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </>
   );
 }
 

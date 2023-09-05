@@ -1,41 +1,44 @@
 import { Outlet } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import Button from "@mui/material/Button";
 import { useContext } from "react";
-import { ThemeContext } from "../App";
+import { ColorModeContext } from "../App";
 
 export function RootLayout() {
-  const { toggleTheme, theme } = useContext(ThemeContext);
-
+  const { colorMode, theme } = useContext(ColorModeContext);
   return (
     <>
-      <nav className="appbar" id={theme}>
-        <Typography id={theme} variant="h5" sx={{ fontWeight: "bold" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          p: "0 80px",
+          height: "80px",
+        }}
+      >
+        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
           Where in the world?
         </Typography>
         <Button
-          id={theme}
           variant="text"
           startIcon={
-            theme === "dark" ? (
-              <LightModeOutlinedIcon />
-            ) : (
+            theme.palette.mode === "dark" ? (
               <DarkModeOutlinedIcon />
+            ) : (
+              <LightModeOutlinedIcon />
             )
           }
-          sx={{ color: "black" }}
-          onClick={toggleTheme}
+          color="inherit"
+          onClick={colorMode.toggleColorMode}
         >
-          Dark Mode
+          {theme.palette.mode} mode
         </Button>
-      </nav>
-      <div className="main" id={theme}>
-        <Outlet />
-      </div>
+      </Box>
+      <Outlet />
     </>
   );
 }
-
-//asdsadasdf

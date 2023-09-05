@@ -2,12 +2,8 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useParams, useLoaderData, Link } from "react-router-dom";
-import { useContext } from "react";
-import { ThemeContext } from "../App";
 
 export function CountryDetail({}) {
-  const { theme } = useContext(ThemeContext);
-
   const { SelectedCountry } = useParams();
   const [data] = useLoaderData();
   let country = {
@@ -37,8 +33,8 @@ export function CountryDetail({}) {
         spacing={2}
         sx={{ marginLeft: "100px", padding: "5px 15px" }}
       >
-        <Link to={"/"}>
-          <Button startIcon={<ArrowBackIcon />} id={theme}>
+        <Link to={"/React_Countries"}>
+          <Button sx={{ color: "text.primary" }} startIcon={<ArrowBackIcon />}>
             Back
           </Button>
         </Link>

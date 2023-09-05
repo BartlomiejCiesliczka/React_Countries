@@ -1,9 +1,6 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../App";
+import Box from "@mui/material/Box";
 
 export function Tile({ country }) {
-  const { theme } = useContext(ThemeContext);
-
   const flag = country.flags;
   const name = country.name.common;
   const population = country.population.toLocaleString();
@@ -11,7 +8,7 @@ export function Tile({ country }) {
   const capital = country.capital;
 
   return (
-    <div className="tile" id={theme}>
+    <Box sx={{ color: "text.primary" }}>
       <div className="tile--imgCointeiner">
         <img src={flag.png} alt={flag.alt} />
       </div>
@@ -32,6 +29,6 @@ export function Tile({ country }) {
           </p>
         </div>
       </div>
-    </div>
+    </Box>
   );
 }
