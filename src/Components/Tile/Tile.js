@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 
 export function Tile({ country }) {
@@ -8,7 +9,7 @@ export function Tile({ country }) {
   const capital = country.capital;
 
   return (
-    <Box sx={{ color: "text.primary" }}>
+    <Paper elevation={4} sx={{ color: "text.primary" }}>
       <div className="tile--imgCointeiner">
         <img src={flag.png} alt={flag.alt} />
       </div>
@@ -29,6 +30,6 @@ export function Tile({ country }) {
           </p>
         </div>
       </div>
-    </Box>
+    </Paper>
   );
 }

@@ -13,6 +13,7 @@ export function RootLayout() {
     <>
       <Box
         sx={{
+          bgcolor: "background.paper",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

@@ -12,12 +12,13 @@ import { Region } from "./Pages/Region";
 import CssBaseline from "@mui/material/CssBaseline";
 
 //dark theme
-import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useMemo, useState, createContext } from "react";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 function App() {
+  //dark-light theme MUI
   const [mode, setMode] = useState("light");
   const colorMode = useMemo(
     () => ({
@@ -27,15 +28,33 @@ function App() {
     }),
     []
   );
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode]
-  );
+
+  const getDesignTokens = (mode) => ({
+    palette: {
+      mode,
+      ...(mode === "light"
+        ? {
+            background: {
+              default: "#fafafa",
+              paper: "#ffffff",
+            },
+            text: {
+              primary: "#111517",
+            },
+          }
+        : {
+            background: {
+              default: "#333e48",
+              paper: "#2b3945",
+            },
+            text: {
+              primary: "#ffffff",
+            },
+          }),
+    },
+  });
+
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   //router base
   const router = createBrowserRouter(
